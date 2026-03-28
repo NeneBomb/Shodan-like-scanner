@@ -1,37 +1,52 @@
-🌐 Network Discovery & Enumeration Suite
+Network Discovery and Enumeration Suite
 
-Un conjunto de herramientas en Bash diseñadas para la exploración y auditoría de redes mediante la generación aleatoria de objetivos IPv4.
+Un conjunto de herramientas avanzadas en Bash diseñadas para la exploración masiva y auditoría de redes mediante la generación aleatoria de objetivos IPv4 y escaneo de alta velocidad.
+Herramienta Principal: all-in-one-find.sh (v6.0)
 
-Estas herramientas aprovechan que la gran mayoría del espacio de direcciones IPv4 está asignado y en uso. Estadísticamente, al generar direcciones aleatorias, existe una alta probabilidad de encontrar hosts activos, incluso si estos no responden a paquetes ICMP (ping) debido a configuraciones de firewall.
-🛠 Herramientas incluidas:
+La evolución definitiva de la suite. A diferencia de los motores basados solo en Nmap, este script utiliza Masscan para el descubrimiento global a velocidades de hasta 5000 pps (paquetes por segundo).
+Caracteristicas Tecnicas:
 
-    ipfind.sh: Motor de descubrimiento general. Utiliza pings rápidos seguidos de escaneos agresivos con Nmap para identificar hosts activos y servicios detallados.
+    Filtro de Honeypots: Omite automaticamente IPs que exponen el puerto 666 (Doom/Pentbox) para evitar sistemas trampa.
 
-    webfind2.sh: Escáner multihilo especializado en activos web. Identifica puertos HTTP/S comunes y verifica el estado de respuesta (200 OK, etc.) en tiempo real.
+    Escaneo Multihilo Asincrono: Utiliza Masscan para el radar inicial y lanza procesos Nmap en segundo plano para la auditoria profunda.
 
-    printerfind.sh: Herramienta de auditoría IoT enfocada en protocolos de impresión (JetDirect, IPP, LPD).
+    Persistencia de Sesion: Soporte nativo para pausar y reanudar el escaneo (paused.conf) sin perder el progreso.
 
-    telnetfind2.sh: Escáner de protocolos legacy para detectar servicios Telnet abiertos en dispositivos antiguos.
+    Protocolos Auditados: FTP (Anonymous), SSH (Banners), Telnet (No-Auth), SMB (Guest), RDP (OS Info) y VNC (No-Auth).
 
-🌍 English Version: Shodan-style IP Scanner
+Otras Herramientas incluidas:
 
-This suite is a collection of Bash-based tools designed for network reconnaissance and auditing. By generating random IPv4 addresses, the tools attempt to discover live hosts and open services across the internet.
-Key Features:
+    ipfind.sh: Motor de descubrimiento general mediante pings y escaneos agresivos con Nmap.
 
-    Efficient Discovery: Targets the vast public IPv4 space where most addresses are active.
+    webfind2.sh: Escaner multihilo especializado en activos web (HTTP/S) y verificacion de estados (200 OK).
 
-    Service-Specific Scanning: Dedicated scripts for Web (HTTP/S), Printing protocols (IoT), and Legacy services (Telnet).
+    printerfind.sh: Auditoria IoT enfocada en protocolos de impresion (JetDirect, IPP, LPD).
 
-    Nmap Integration: Leverages the power of Nmap for deep packet inspection and service versioning.
+    telnetfind2.sh: Escaner de protocolos legacy para detectar servicios Telnet abiertos.
 
-⚠️ Disclaimer / Aviso Legal
+English Version: Shodan-style IP Scanner
 
-Este proyecto ha sido desarrollado exclusivamente con fines educativos y de seguridad ética. El autor no se hace responsable del mal uso de estas herramientas. Realizar escaneos sobre redes sin autorización previa puede tener implicaciones legales.
+This suite is a high-performance collection of Bash-based tools for global network reconnaissance. The flagship script, all-in-one-find.sh, leverages Masscan for internet-wide scanning and Nmap for deep service inspection.
+Technical Specifications (v6.0):
 
-This project was developed for educational and ethical security purposes only. The author is not responsible for any misuse. Unauthorized network scanning may be illegal in your jurisdiction.
-🚀 Uso / Usage
-Bash
+    Honeypot Mitigation: Automatically ignores hosts with port 666 open to filter out deception systems.
 
+    High-Speed Discovery: Capable of scanning at 5000+ pps, covering the IPv4 space efficiently.
+
+    Session Management: Built-in resume support using paused.conf.
+
+    Deep Inspection: Specialized checks for unauthenticated FTP, SMB, VNC, and Telnet access.
+
+Disclaimer / Aviso Legal
+
+Este proyecto ha sido desarrollado exclusivamente con fines educativos y de seguridad etica. El autor no se hace responsable del mal uso de estas herramientas. Realizar escaneos sobre redes de terceros sin autorizacion puede ser ilegal.
+
+This project was developed for educational and ethical security purposes only. Unauthorized network scanning may be illegal in your jurisdiction. Use responsibly.
+
+Uso / Usage
+
+# Otorgar permisos de ejecucion
 chmod +x *.sh
-# El escaneo de red suele requerir privilegios de root para paquetes RAW
-sudo ./ipfind.sh
+
+# El escaneo masivo requiere privilegios de root para paquetes RAW (Masscan/Nmap)
+sudo ./all-in-one-find.sh
